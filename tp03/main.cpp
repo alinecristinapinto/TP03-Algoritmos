@@ -13,15 +13,13 @@ int main(int argc, char const *argv[]) {
 
     for (int i = 0; i < numCasosTeste; i++) {
         cin >> numTipoLigas >> demanda;
-        int *ligas = new int[numTipoLigas];
+        int ligas[numTipoLigas];
 
         for(int j = 0; j < numTipoLigas; j++){
             cin >> ligas[j];
         }
 
         cout << centroDistribuicao.buscarNumeroMinimoLigas(ligas, numTipoLigas, demanda) << endl;
-
-        delete ligas;
     }
     
     return 0;

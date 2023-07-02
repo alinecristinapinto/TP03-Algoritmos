@@ -10,9 +10,6 @@ public:
     int buscarNumeroMinimoLigas(int ligas[], int numTipoLigas, int demanda);
 
     virtual ~DistribuicaoPD();
-
-private:
-    int *tabela;
 };
 
 #endif //DISTRIBUICAO_PD_HPP

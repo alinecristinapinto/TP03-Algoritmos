@@ -8,30 +8,31 @@ using namespace std;
 DistribuicaoPD::DistribuicaoPD(){}
 
 int DistribuicaoPD::buscarNumeroMinimoLigas(int ligas[], int numTipoLigas, int demanda){
-    this->tabela = new int[demanda + 1]; 
+    // cria uma tabela para armazenar a quantidade minima de ligas para representar cada valor entre 0 e a demanda 
+    int tabela [demanda + 1]; 
 
-    for(int i = 0; i < (demanda+1); i++){
-        tabela[i] = INF;
-    }
+    tabela[0] = 0; // nenhuma liga precisa ser utilizada para somar 0
 
-    tabela[0] = 0;
-
+    // para todos os valores entre 1 e a demanda
     for(int i = 1; i <= demanda; i++){
+        tabela[i] = INF; // seta a posicao i como infinito ja que ainda nao houve a contabilizacao de nenhuma liga
+
         for (int j = 0; j < numTipoLigas; j++){
+            // verifica se eh possivel usar a liga (tamanho menor que o valor)
             if(ligas[j] <= i){
-                int sub_res = tabela[i - ligas[j]];
-                if (sub_res != INF && sub_res + 1 < tabela[i])
-                    tabela[i] = sub_res + 1;
+                // soma 1 (liga que pode estar sendo adicionada a solucao) a cada solucao armazenada em j
+                int subSolucao = tabela[i - ligas[j]] + 1;
+
+                // atualiza o numero de ligas necessarias caso a sub solucao seja menor do que a armazenada na tabela
+                if (subSolucao != INF && subSolucao < tabela[i]){
+                    tabela[i] = subSolucao;
+                }
             }
         }
     }
-
-    if (tabela[demanda] == INF)
-        return -1;
  
+    // como sempre teremos uma liga de tamanho 1, ou seja sempre tera solucao, apenas retornamos a soma obtida para a demanda
     return tabela[demanda];
 }
 
-DistribuicaoPD::~DistribuicaoPD(){
-    delete this->tabela;
-}
+DistribuicaoPD::~DistribuicaoPD(){}
